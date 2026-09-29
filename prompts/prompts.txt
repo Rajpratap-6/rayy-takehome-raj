@@ -1,0 +1,285 @@
+---
+
+2026-09-29 16:43:38
+
+Then inspect the existing backend, tests, app/gateway.py, and client/web.
+
+Do not change the code yet.
+
+Tell me briefly:
+- what is already implemented
+- what still needs to be done
+- which files are relevant
+- how to run the backend and React tests
+
+
+---
+
+2026-09-29 16:46:08
+
+Before changing any code, run the existing tests.
+
+For backend tests use the project venv directly:
+..venv\Scripts\python.exe -m pytest
+
+Also check if Node and npm are available, then run the existing React tests from client/web if possible.
+
+Do not install Docker and do not change application code yet.
+
+Tell me briefly:
+
+- backend test result
+- React test result
+- any setup issue that blocks the tests
+
+
+---
+
+2026-09-29 16:50:13
+
+Node.js and npm are missing, so do not change application code yet.
+
+Tell me the simplest Node.js version/setup this project needs on Windows based on the existing client/web files and package configuration.
+
+Keep it short. I only want the setup needed to run the existing React tests.
+
+
+---
+
+2026-09-29 (time unavailable)
+
+node --version
+npm --version
+
+
+---
+
+2026-09-29 (time unavailable)
+
+Clean up the prompts folder.
+
+Combine the existing prompt files into one file named prompts.txt.
+
+Keep every actual prompt in date/time order and show the date and time before each prompt.
+
+Remove repeated housekeeping lines like instructions about saving the prompt itself. Keep the real task instructions unchanged.
+
+After checking that all prompts are present in prompts.txt, remove the old separate prompt files so the prompts folder contains only the combined history file.
+
+Do not change any application code.
+
+
+---
+
+2026-09-29 (time unavailable)
+
+---
+
+Clean up the existing prompts/prompts.txt formatting only.
+
+For every prompt already in the file:
+
+- keep the original date and time
+- keep the actual prompt text unchanged
+- add this separator before each new prompt:
+
+---
+
+- leave enough blank space between prompts so the file is easy to read
+- remove only repeated housekeeping lines about saving prompts if any still remain
+
+Do not remove any real task instructions.
+Do not change application code or any other project files.
+
+
+---
+
+
+Keep all existing dates, times, and prompt text unchanged.
+
+Do not change any other file.
+
+
+---
+
+2026-09-29 (time unavailable)
+
+---
+
+Update prompts/prompts.txt formatting only .  ---------------------------------- make that much long
+
+Make every separator line exactly this long:
+
+---
+
+Keep all existing dates, times, and prompt text unchanged.
+
+Do not change any other file.
+
+
+---
+
+2026-09-29 (time unavailable)
+
+---
+
+Backend and React baseline tests are passing.
+
+Now implement only the discount application backend part from README.md.
+
+Before changing code, read the relevant existing backend files and keep the current structure simple.
+
+Requirements:
+
+- add the apply-discount endpoint required by the README
+- validate the discount code and expiry
+- calculate the percentage discount
+- respect the maximum discount cap
+- keep money calculations in integer paise
+- update the order with the applied discount and funding split
+- keep the calculation/business logic outside the route
+- add focused backend tests for this behavior
+
+Do not work on the payment webhook or React yet.
+
+Keep naming simple and consistent with the existing project.
+
+Run the backend tests after changes and tell me briefly:
+
+- what changed
+- which files changed
+- test result
+
+
+---
+
+2026-09-29 (time unavailable)
+
+---
+
+Read the payment webhook requirements in README.md again, then inspect only the relevant backend files including app/gateway.py and existing payment/order code.
+
+Now implement only the payment webhook part.
+
+Requirements:
+
+- add the webhook endpoint required by README.md
+- verify the webhook using the provided gateway/signing logic
+- handle successful payment
+- mark the correct order as paid
+- record the payment details required by the existing project
+- handle duplicate webhook delivery safely so the same payment is not processed twice
+- keep business logic outside the route where appropriate
+- add focused backend tests for success, invalid webhook, and duplicate delivery
+
+Do not work on React or NOTES.md yet.
+
+Keep the implementation simple and use normal, easy-to-understand names.
+
+Run the full backend test suite after changes and tell me briefly:
+
+- what changed
+- which files changed
+- test result
+
+
+---
+
+2026-09-29 17:10:39
+
+---
+
+Update prompts/prompts.txt only.
+
+Append every Codex prompt used after the last saved entry, including:
+
+- the discount implementation prompt
+- the prompt about fixing separator length
+- any other missing prompt since the last saved one
+
+Keep them in chronological order.
+
+For each prompt:
+
+- keep the original date and time if available
+- use this separator before each prompt:
+
+---
+
+- keep the actual prompt text unchanged
+- do not add Codex responses
+- do not remove any real prompt content
+
+From now on, whenever I send a new prompt in this chat, append that exact prompt to prompts/prompts.txt automatically before doing the task.
+
+Do not change application code.
+
+
+---
+
+2026-09-29 17:12:59
+
+---
+
+Read the payment webhook requirements in README.md again and inspect the relevant backend files, especially app/gateway.py and the current order/payment code.
+
+Implement only the payment webhook part.
+
+Requirements:
+
+- add the webhook endpoint from README.md
+- verify the webhook using the provided gateway/signature logic
+- handle successful payment
+- mark the correct order as paid
+- record the payment details required by the existing project
+- handle duplicate webhook delivery safely so the same payment is not processed twice
+- keep business logic outside the route where it makes sense
+- add focused backend tests for success, invalid webhook, and duplicate delivery
+
+Do not work on React or NOTES.md yet.
+
+Keep naming simple and consistent with the existing project.
+
+Run the full backend test suite after changes and tell me briefly:
+
+- what changed
+- which files changed
+- test result
+
+
+---
+
+2026-09-29 17:15:18
+
+---
+
+
+Now work only on the React task from README.md inside client/web.
+
+Before changing code, read the existing React files and keep the current structure simple.
+
+Implement:
+
+- formatPaise using integer paise
+- Indian currency formatting
+- subtotal, discount, and total display
+- Pay button
+- disable the button while payment is in progress
+- show Paid after success
+- show an error if payment fails and allow retry
+- add the required React tests using the existing test structure
+
+Keep the project clean:
+
+- do not add packages
+- do not create unnecessary files, helpers, or abstractions
+- reuse the existing components and test files where practical
+- keep names simple and easy to explain
+
+Do not work on NOTES.md yet.
+
+Run the React tests after changes and tell me briefly:
+
+- what changed
+- which files changed
+- test result

@@ -10,5 +10,21 @@
  * Throws an Error if `paise` is not an integer.
  */
 export function formatPaise(paise: number): string {
-  throw new Error("not implemented");
+  if (!Number.isSafeInteger(paise)) {
+    throw new Error("paise must be an integer");
+  }
+
+  const absolutePaise = Math.abs(paise);
+  const rupees = Math.floor(absolutePaise / 100);
+  const paisePart = String(absolutePaise % 100).padStart(2, "0");
+  const digits = String(rupees);
+  const lastThree = digits.slice(-3);
+  const leadingDigits = digits.slice(0, -3);
+  const groupedLeadingDigits = leadingDigits.replace(/\B(?=(\d{2})+(?!\d))/g, ",");
+  const groupedRupees = leadingDigits
+    ? `${groupedLeadingDigits},${lastThree}`
+    : lastThree;
+  const sign = paise < 0 ? "-" : "";
+
+  return `${sign}₹${groupedRupees}.${paisePart}`;
 }

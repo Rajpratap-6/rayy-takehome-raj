@@ -17,3 +17,27 @@ async def get(order_id: str) -> dict | None:
 async def list_recent(limit: int = 50) -> list[dict]:
     cursor = get_db()[ORDERS].find({}).sort("created_at", -1).limit(limit)
     return [_to_order_dict(doc) async for doc in cursor]
+
+
+async def apply_discount(order_id: str, discount: dict, total_paise: int) -> dict | None:
+    result = await get_db()[ORDERS].update_one(
+        {"_id": order_id, "discount": {"$exists": False}},
+        {"$set": {"discount": discount, "total_paise": total_paise}},
+    )
+    if result.modified_count == 0:
+        return None
+    return await get(order_id)
+
+
+async def mark_paid(order_id: str, payment: dict) -> dict | None:
+    result = await get_db()[ORDERS].update_one(
+        {
+            "_id": order_id,
+            "status": {"$ne": "paid"},
+            "payment": {"$exists": False},
+        },
+        {"$set": {"status": "paid", "payment": payment}},
+    )
+    if result.modified_count == 0:
+        return None
+    return await get(order_id)

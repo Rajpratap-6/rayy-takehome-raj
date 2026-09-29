@@ -33,6 +33,15 @@ from app.config import settings
 SIGNATURE_HEADER = "X-Gateway-Signature"
 
 
+def verify_webhook_signature(body: bytes, signature: str) -> bool:
+    expected = hmac.new(
+        settings.gateway_webhook_secret.encode(),
+        body,
+        hashlib.sha256,
+    ).hexdigest()
+    return hmac.compare_digest(expected, signature)
+
+
 class StubGateway:
     def __init__(self, webhook_secret: str | None = None):
         self.webhook_secret = webhook_secret or settings.gateway_webhook_secret

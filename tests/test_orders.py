@@ -37,3 +37,68 @@ async def test_seed_subtotals_match_items():
         items_total = sum(i["unit_price_paise"] * i["quantity"] for i in order["items"])
         assert order["subtotal_paise"] == items_total
         assert isinstance(order["subtotal_paise"], int)
+
+
+async def test_apply_discount_calculates_percentage_and_funding(client):
+    response = await client.post(
+        "/orders/ord_a_1001/apply-discount",
+        json={"code": "PARTNER15"},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["subtotal_paise"] == 19999
+    assert body["total_paise"] == 17000
+    assert body["discount"] == {
+        "code": "PARTNER15",
+        "percent_off_bps": 1500,
+        "cap_paise": 50000,
+        "amount_paise": 2999,
+        "partner_share_bps": 7000,
+        "rayy_share_bps": 3000,
+        "partner_amount_paise": 2099,
+        "rayy_amount_paise": 900,
+    }
+
+
+async def test_apply_discount_respects_cap(client):
+    response = await client.post(
+        "/orders/ord_a_1002/apply-discount",
+        json={"code": "MEGA50"},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["discount"]["amount_paise"] == 6000
+    assert body["total_paise"] == 13999
+
+
+async def test_apply_discount_rejects_invalid_and_expired_codes(client):
+    invalid = await client.post(
+        "/orders/ord_a_1003/apply-discount",
+        json={"code": "NOT_A_CODE"},
+    )
+    expired = await client.post(
+        "/orders/ord_a_1003/apply-discount",
+        json={"code": "LASTWEEK20"},
+    )
+
+    assert invalid.status_code == 400
+    assert invalid.json() == {"detail": "invalid discount code"}
+    assert expired.status_code == 400
+    assert expired.json() == {"detail": "discount code expired"}
+
+
+async def test_apply_discount_rejects_second_code(client):
+    first = await client.post(
+        "/orders/ord_a_1004/apply-discount",
+        json={"code": "PARTNER15"},
+    )
+    second = await client.post(
+        "/orders/ord_a_1004/apply-discount",
+        json={"code": "WELCOME10"},
+    )
+
+    assert first.status_code == 200
+    assert second.status_code == 409
+    assert second.json() == {"detail": "discount already applied"}
