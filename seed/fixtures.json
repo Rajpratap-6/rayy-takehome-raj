@@ -1,0 +1,69 @@
+{
+  "_about": "Scenarios you can use in your tests. Order and code ids refer to seed/orders.json and seed/discount_codes.json. Webhook bodies use the shape documented in app/gateway.py.",
+  "apply_discount": [
+    {
+      "name": "apply_1",
+      "order_id": "ord_a_1002",
+      "codes": [
+        "MEGA50"
+      ]
+    },
+    {
+      "name": "apply_2",
+      "order_id": "ord_a_1001",
+      "codes": [
+        "PARTNER15"
+      ]
+    },
+    {
+      "name": "apply_3",
+      "order_id": "ord_a_1002",
+      "codes": [
+        "LASTWEEK20"
+      ]
+    },
+    {
+      "name": "apply_4",
+      "order_id": "ord_a_1005",
+      "codes": [
+        "PARTNER15",
+        "WELCOME10"
+      ],
+      "sent": "at_the_same_time"
+    },
+    {
+      "name": "apply_5",
+      "order_id": "ord_a_1004",
+      "codes": [
+        "PARTNER15",
+        "WELCOME10"
+      ],
+      "sent": "one_after_another"
+    }
+  ],
+  "webhooks": [
+    {
+      "name": "webhook_1",
+      "body": {
+        "event": "payment.succeeded",
+        "payment_id": "pay_a_7001",
+        "order_id": "ord_a_1003",
+        "amount_paise": 89900
+      },
+      "times_delivered": 2
+    },
+    {
+      "name": "webhook_2",
+      "after": [
+        "apply_2"
+      ],
+      "body": {
+        "event": "payment.succeeded",
+        "payment_id": "pay_a_7002",
+        "order_id": "ord_a_1001",
+        "amount_paise": 19999
+      },
+      "times_delivered": 1
+    }
+  ]
+}

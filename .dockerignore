@@ -1,0 +1,5 @@
+client/*/node_modules
+client/*/.dart_tool
+client/*/build
+**/__pycache__
+.pytest_cache

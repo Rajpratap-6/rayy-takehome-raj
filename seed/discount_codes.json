@@ -1,0 +1,36 @@
+{
+  "codes": [
+    {
+      "code": "PARTNER15",
+      "percent_off_bps": 1500,
+      "cap_paise": 50000,
+      "expires_in_days": 30,
+      "partner_share_bps": 7000,
+      "rayy_share_bps": 3000
+    },
+    {
+      "code": "MEGA50",
+      "percent_off_bps": 5000,
+      "cap_paise": 6000,
+      "expires_in_days": 30,
+      "partner_share_bps": 6000,
+      "rayy_share_bps": 4000
+    },
+    {
+      "code": "LASTWEEK20",
+      "percent_off_bps": 2000,
+      "cap_paise": 10000,
+      "expires_in_days": -1,
+      "partner_share_bps": 7000,
+      "rayy_share_bps": 3000
+    },
+    {
+      "code": "WELCOME10",
+      "percent_off_bps": 1000,
+      "cap_paise": 20000,
+      "expires_in_days": 30,
+      "partner_share_bps": 8000,
+      "rayy_share_bps": 2000
+    }
+  ]
+}
